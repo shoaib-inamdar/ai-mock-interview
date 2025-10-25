@@ -11,6 +11,7 @@
     "@stackframe/js": "^2.8.44",
     "@stackframe/react": "^2.8.44",
     "@stackframe/stack": "^2.8.44",
+    "convex": "^1.28.0",
     "next": "16.0.0",
     "react": "19.2.0",
     "react-dom": "19.2.0"
