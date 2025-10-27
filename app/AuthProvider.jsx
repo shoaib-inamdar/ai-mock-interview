@@ -7,7 +7,7 @@ import { UserContext } from './_context/UserContext';
 
 function AuthProvider({children}) {
 
-    const user=useUser({ or: "redirect" });
+    const user=useUser();
     const CreateUser=useMutation(api.users.CreateUser);
     const [userData,setUserData]=useState()
     useEffect(()=>{
@@ -18,7 +18,7 @@ function AuthProvider({children}) {
     const CreateNewUser=async()=>{
         const result=await CreateUser({
             name:user?.displayName,
-            email:user.primaryEmail
+            email:user?.primaryEmail
         });
         console.log(result)
         setUserData(result);
