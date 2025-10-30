@@ -4,8 +4,8 @@ import { StackClientApp } from "@stackframe/react";
 
 export const stackClientApp = new StackClientApp({
   // You should store these in environment variables based on your project setup
-  projectId: "your-project-id",
-  publishableClientKey: "your-publishable-client-key",
+  projectId:process.env.NEXT_PUBLIC_STACK_PROJECT_ID,
+  publishableClientKey:process.env.NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY,
   tokenStore: "cookie",
   // redirectMethod: { useNavigate }, // Optional: only if using react-router-dom
 });
