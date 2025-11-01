@@ -5,6 +5,7 @@ import { UserButton, useUser } from '@stackframe/stack'
 import Image from 'next/image'
 
 import React from 'react'
+import UserInputDialog from './UserInputDialog'
 
 function FeatureAssitants() {
     const user=useUser()
@@ -18,14 +19,18 @@ function FeatureAssitants() {
             </div>
             <Button>Profile</Button>
         </div>
+        
         <div className="w-full h-full flex flex-wrap  gap-5 mt-10">
           {CoachingOptions.map((option,index)=>{
-            return <div key={index} className='p-3 bg-secondary rounded-3xl flex flex-col justify-center items-center'>
-              <Image src={option.icon} alt={option.name} width={120} height={150} className="h-40 w-44"/>
+            return <UserInputDialog CoachingOptions={option}>
+              <div key={index} className='p-3 bg-secondary rounded-3xl flex flex-col justify-center items-center'>
+              <Image src={option.icon} alt={option.name} width={120} height={150} className="h-40 w-44 hover:rotate-12 cursor-pointer transition-all"/>
               <h2 className='text-black mt-2'>{option.name}</h2>
             </div>
+ </UserInputDialog>
           })}
         </div>
+        
     </div>
   )
 }
