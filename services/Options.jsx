@@ -55,7 +55,7 @@ export const CoachingExpert = [
     {
         name: 'Joey',
         avatar: '/t3.jpg',
-        pro: false
+    pro: false
     },
     // {
     //     name: 'Rachel',
