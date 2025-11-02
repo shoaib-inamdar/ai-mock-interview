@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as DiscussionRoom from "../DiscussionRoom.js";
 import type * as users from "../users.js";
 
 import type {
@@ -25,6 +26,7 @@ import type {
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  DiscussionRoom: typeof DiscussionRoom;
   users: typeof users;
 }>;
 declare const fullApiWithMounts: typeof fullApi;

@@ -22,7 +22,7 @@ function FeatureAssitants() {
         
         <div className="w-full h-full flex flex-wrap  gap-5 mt-10">
           {CoachingOptions.map((option,index)=>{
-            return <UserInputDialog CoachingOptions={option}>
+            return <UserInputDialog key={index} CoachingOptions={option}>
               <div key={index} className='p-3 bg-secondary rounded-3xl flex flex-col justify-center items-center'>
               <Image src={option.icon} alt={option.name} width={120} height={150} className="h-40 w-44 hover:rotate-12 cursor-pointer transition-all"/>
               <h2 className='text-black mt-2'>{option.name}</h2>

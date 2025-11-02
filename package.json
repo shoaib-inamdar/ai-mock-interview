@@ -13,6 +13,8 @@
     "@stackframe/js": "^2.8.44",
     "@stackframe/react": "^2.8.44",
     "@stackframe/stack": "^2.8.44",
+    "assemblyai": "^4.18.5",
+    "axios": "^1.13.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "convex": "^1.28.0",
@@ -21,6 +23,7 @@
     "next": "16.0.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "recordrtc": "^5.5.1",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
