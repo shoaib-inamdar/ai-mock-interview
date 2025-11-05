@@ -2,14 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
-import { getToken } from "@/services/GlobalServices";
+import { AIModel, getToken } from "@/services/GlobalServices";
 import { CoachingExpert } from "@/services/Options";
 import { UserButton } from "@stackframe/stack";
 import { RealtimeTranscriber } from "assemblyai";
 import { useQuery } from "convex/react";
+import { Loader2, Loader2Icon } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import OpenAI from "openai";
 import React, { useEffect, useRef, useState } from "react";
 // const RecordRTC=dynamic(()=>import("recordrtc"),{ssr:false})
 import RecordRTC from "recordrtc";
@@ -23,6 +25,7 @@ function DiscussionRoom() {
   const realtimeTranscriber=useRef(null)
   const [conversation,setConversation]=useState([]);
   const [transcribe,setTranscribe]=useState()
+  const[loading,setLoading]=useState(false)
   let silenceTimeout;
   let texts={};
 
@@ -42,6 +45,7 @@ function DiscussionRoom() {
 
   const connectToServer =async () => {
     setEnableMic(true);
+    setLoading(true);
 
     realtimeTranscriber.current=new RealtimeTranscriber({
       token:await getToken(),
@@ -56,6 +60,17 @@ function DiscussionRoom() {
           role:'user',
           content:transcript.text
         }])
+
+// Calling AI text Model to Get Response
+const aiResp = await AIModel(
+  DiscussionRoomData.topic,
+  DiscussionRoomData.coachingOption,
+  transcript.text
+);
+
+console.log(aiResp);
+setConversation(prev=>[...prev,aiResp])
+
       }
       texts[transcript.audio_start]=transcript.text;
       const keys=Object.keys(texts)
@@ -69,7 +84,8 @@ function DiscussionRoom() {
       setTranscribe(msg)
     })
 
-    await realtimeTranscriber.current.connect()
+    await realtimeTranscriber.current.connect();
+    setLoading(false);
 
     if (typeof window !== "undefined" && typeof navigator !== "undefined") {
       navigator.mediaDevices
@@ -105,7 +121,9 @@ function DiscussionRoom() {
   };
 
   const disconnect=async(e)=>{
+
     e.preventDefault();
+    setLoading(true);
     if (recorder.current) {
       if (recorder.current.stopRecording) recorder.current.stopRecording();
       else if (recorder.current.stop) recorder.current.stop();
@@ -113,6 +131,7 @@ function DiscussionRoom() {
     }    recorder.current=null;
     await realtimeTranscriber.current.close(true);
     setEnableMic(false)
+    setLoading(false);
   }
   return (
     <div className="-mt-16">
@@ -138,9 +157,9 @@ function DiscussionRoom() {
             </div>
           </div>
           <div className="mt-5 flex items-center justify-center">
-           {!enableMic? <Button onClick={connectToServer}>Connect</Button>
+           {!enableMic? <Button onClick={connectToServer} disabled={loading}>{loading && <Loader2Icon className="animate-spin"/>}Connect</Button>
            :
-           <Button variant="destructive" onClick={disconnect}>Disconnect</Button>
+           <Button variant="destructive" onClick={disconnect} disabled={loading}>{loading && <Loader2Icon className="animate-spin"/>}Disconnect</Button>
            }
           </div>
         </div>
