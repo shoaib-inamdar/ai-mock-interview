@@ -15,7 +15,7 @@ export const CreateNewRoom=mutation({
             expertName:args.expertName
         });
         return result
-    }
+    } 
 })
 
 export const GetDiscussionRoom=query({

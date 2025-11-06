@@ -2,19 +2,18 @@
 
 import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
-import { AIModel, getToken } from "@/services/GlobalServices";
+import { getToken } from "@/services/GlobalServices";
 import { CoachingExpert } from "@/services/Options";
 import { UserButton } from "@stackframe/stack";
 import { RealtimeTranscriber } from "assemblyai";
 import { useQuery } from "convex/react";
-import { Loader2, Loader2Icon } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import OpenAI from "openai";
 import React, { useEffect, useRef, useState } from "react";
 // const RecordRTC=dynamic(()=>import("recordrtc"),{ssr:false})
 import RecordRTC from "recordrtc";
+import ChatBox from "./_components/ChatBox";
 
 function DiscussionRoom() {
   const { roomid } = useParams();
@@ -23,11 +22,19 @@ function DiscussionRoom() {
   const [enableMic,setEnableMic]=useState(false);
   const recorder=useRef(null)
   const realtimeTranscriber=useRef(null)
-  const [conversation,setConversation]=useState([]);
+  
   const [transcribe,setTranscribe]=useState()
-  const[loading,setLoading]=useState(false)
   let silenceTimeout;
   let texts={};
+  const [conversation,setConversation]=useState([{
+    role:'assistant',
+    content:"hi"
+
+  },
+{
+  role:'user',
+  content:"helo"
+}]);
 
   useEffect(() => {
     const DiscussionRoomData = {
@@ -45,7 +52,6 @@ function DiscussionRoom() {
 
   const connectToServer =async () => {
     setEnableMic(true);
-    setLoading(true);
 
     realtimeTranscriber.current=new RealtimeTranscriber({
       token:await getToken(),
@@ -59,19 +65,22 @@ function DiscussionRoom() {
         setConversation(prev=>[...prev,{
           role:'user',
           content:transcript.text
-        }])
+        }]);
 
-// Calling AI text Model to Get Response
+        // Calling AI text Model to Get Response
+        const lastTwoMsg=conversation.slice(2);
 const aiResp = await AIModel(
   DiscussionRoomData.topic,
   DiscussionRoomData.coachingOption,
-  transcript.text
+  lastTwoMsg
 );
 
 console.log(aiResp);
 setConversation(prev=>[...prev,aiResp])
 
       }
+
+
       texts[transcript.audio_start]=transcript.text;
       const keys=Object.keys(texts)
       keys.sort((a,b)=>a-b);
@@ -84,8 +93,7 @@ setConversation(prev=>[...prev,aiResp])
       setTranscribe(msg)
     })
 
-    await realtimeTranscriber.current.connect();
-    setLoading(false);
+    await realtimeTranscriber.current.connect()
 
     if (typeof window !== "undefined" && typeof navigator !== "undefined") {
       navigator.mediaDevices
@@ -121,9 +129,7 @@ setConversation(prev=>[...prev,aiResp])
   };
 
   const disconnect=async(e)=>{
-
     e.preventDefault();
-    setLoading(true);
     if (recorder.current) {
       if (recorder.current.stopRecording) recorder.current.stopRecording();
       else if (recorder.current.stop) recorder.current.stop();
@@ -131,7 +137,6 @@ setConversation(prev=>[...prev,aiResp])
     }    recorder.current=null;
     await realtimeTranscriber.current.close(true);
     setEnableMic(false)
-    setLoading(false);
   }
   return (
     <div className="-mt-16">
@@ -157,20 +162,14 @@ setConversation(prev=>[...prev,aiResp])
             </div>
           </div>
           <div className="mt-5 flex items-center justify-center">
-           {!enableMic? <Button onClick={connectToServer} disabled={loading}>{loading && <Loader2Icon className="animate-spin"/>}Connect</Button>
+           {!enableMic? <Button onClick={connectToServer}>Connect</Button>
            :
-           <Button variant="destructive" onClick={disconnect} disabled={loading}>{loading && <Loader2Icon className="animate-spin"/>}Disconnect</Button>
+           <Button variant="destructive" onClick={disconnect}>Disconnect</Button>
            }
           </div>
         </div>
         <div>
-          <div className="h-[60vh] bg-secondary border rounded-4xl flex flex-col items-center justify-center relative">
-            Chat Section
-          </div>
-          <h2 className="mt-4 text-gray-400 text-sm ">
-            At the end of the conversation we will automatically generate
-            feedback/notes from your conversation
-          </h2>
+        <ChatBox conversation={conversation}/>
         </div>
       </div>
       <div className="">
