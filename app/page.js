@@ -1,22 +1,13 @@
-"use client";
+import { Button } from "@/components/ui/button";
+import { UserButton } from "@stackframe/stack";
+import Image from "next/image";
 
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useUser } from "@stackframe/stack";
-
-export default function HomePage() {
-  const router = useRouter();
-  const user = useUser(); // returns null if not logged in
-
-  useEffect(() => {
-    if (user === undefined) return; // still loading
-    if (user) router.push("/dashboard");
-    else router.push("/handler/sign-in");
-  }, [user, router]);
-
+export default function Home() {
   return (
-    <div className="flex h-screen items-center justify-center text-lg">
-      Redirecting...
-    </div>
+     <div>
+      <h2>Getting start a new project</h2>
+      <Button>Subscribe</Button>
+      <UserButton/>
+     </div>
   );
 }

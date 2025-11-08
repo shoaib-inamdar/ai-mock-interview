@@ -1,4 +1,4 @@
-export const CoachingOptions = [
+export const coachingOptions = [
     {
         name: 'Topic Base Lecture',
         icon: '/lecture.png',
@@ -41,7 +41,7 @@ export const CoachingOptions = [
 
 
 
-export const CoachingExpert = [
+export const coachingExpert = [
     {
         name: 'Joanna',
         avatar: '/t1.avif',

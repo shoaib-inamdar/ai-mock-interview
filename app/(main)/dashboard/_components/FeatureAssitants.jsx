@@ -1,6 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { CoachingOptions } from '@/services/Options'
+import { coachingOptions } from '@/services/Options'
 import { UserButton, useUser } from '@stackframe/stack'
 import Image from 'next/image'
 
@@ -21,8 +21,8 @@ function FeatureAssitants() {
         </div>
         
         <div className="w-full h-full flex flex-wrap  gap-5 mt-10">
-          {CoachingOptions.map((option,index)=>{
-            return <UserInputDialog key={index} CoachingOptions={option}>
+          {coachingOptions.map((option,index)=>{
+            return <UserInputDialog key={index} coachingOptions={option}>
               <div key={index} className='p-3 bg-secondary rounded-3xl flex flex-col justify-center items-center'>
               <Image src={option.icon} alt={option.name} width={120} height={150} className="h-40 w-44 hover:rotate-12 cursor-pointer transition-all"/>
               <h2 className='text-black mt-2'>{option.name}</h2>
