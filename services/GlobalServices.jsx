@@ -30,6 +30,36 @@ export const AIModel = async (topic, coachingOptionStr, lastTwoConversation) => 
   console.log(completion.choices[0].message);
   return completion.choices[0].message;
 };
+export const ConvertTextToSpeech = async (text, expertName) => {
+  try {
+    const pollyClient = new PollyClient({
+      region: "us-east-1",
+      credentials: {
+        accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_KEY,
+      },
+    });
+
+    const command = new SynthesizeSpeechCommand({
+      Text: text,
+      OutputFormat: "mp3",
+      VoiceId: expertName || "Joanna",
+    });
+
+    const response = await pollyClient.send(command);
+
+    // Convert AWS AudioStream (Uint8Array) to Blob
+    const audioBuffer = await response.AudioStream.transformToByteArray();
+    const audioBlob = new Blob([audioBuffer], { type: "audio/mp3" });
+    const audioUrl = URL.createObjectURL(audioBlob);
+
+    console.log("✅ Polly Audio URL:", audioUrl);
+    return audioUrl;
+  } catch (error) {
+    console.error("❌ Polly Error:", error);
+    return null;
+  }
+};
 export const getToken=async()=>{
     const result=await axios.get('/api/getToken');
     return result.data;
