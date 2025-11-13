@@ -1,4 +1,4 @@
-export const coachingOptions = [
+export const ExpertsList = [
     {
         name: 'Topic Base Lecture',
         icon: '/lecture.png',
@@ -41,21 +41,21 @@ export const coachingOptions = [
 
 
 
-export const coachingExpert = [
+export const CoachingExpert = [
     {
-        name: 'Joanna',
+        name: 'pNInz6obpgDQGcFmaJgB',
         avatar: '/t1.avif',
         pro: false
     },
     {
-        name: 'Salli',
+        name: '21m00Tcm4TlvDq8ikWAM',
         avatar: '/t2.jpg',
         pro: false
     },
     {
-        name: 'Joey',
+        name: 'EXAVITQu4vr4xnSDxMaL',
         avatar: '/t3.jpg',
-    pro: false
+        pro: false
     },
     // {
     //     name: 'Rachel',
