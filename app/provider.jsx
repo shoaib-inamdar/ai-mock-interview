@@ -1,21 +1,22 @@
-"use client";
-import { ConvexProvider, ConvexReactClient } from "convex/react";
+"use client"
 import React, { Suspense } from "react";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
 import AuthProvider from "./AuthProvider";
-import Loading from "./loading";
+
+import { stackClientApp } from "../stack/client";
 
 function Provider({ children }) {
   const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
+  convex.setAuth(stackClientApp.getConvexClientAuth({}));
 
   return (
-    <Suspense fallback={<Loading/>}>
-      <ConvexProvider client={convex}>
-        <AuthProvider>
+    <Suspense fallback={<p>Loading...</p>}>
+        <ConvexProvider client={convex}> 
+          <AuthProvider>
           {children}
-        </AuthProvider>
-      </ConvexProvider>
+          </AuthProvider>
+        </ConvexProvider>
     </Suspense>
-  )
+  );
 }
-
 export default Provider;
