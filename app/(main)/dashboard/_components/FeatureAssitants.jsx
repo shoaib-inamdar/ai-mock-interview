@@ -6,10 +6,13 @@ import Image from 'next/image';
 import React from 'react'
 import { BlurFade } from '@/components/magicui/blur-fade';
 import UserInputDialog from './UserInputDialog';
+// import { useRouter } from 'next/router';
 import ProfileDialog from './ProfileDialog';
+import Link from "next/link";
 
 function FeatureAssistant() {
     const user = useUser() ;
+    // const router = useRouter();
     return (
         <div>
 
@@ -34,6 +37,23 @@ function FeatureAssistant() {
                    </BlurFade>
                 ))}
             </div>
+                <BlurFade  delay={0.25} inView>
+            <div className="flex gap-5">
+                <Link href="/jobs" >
+
+                <div  className="cursor-pointer bg-secondary w-[10rem] p-4 text-center rounded-2xl">
+                    <img src="https://t4.ftcdn.net/jpg/13/34/89/93/360_F_1334899376_vWcgV4KYYQ8fxWgpqx4EXCUmOuaCBBTQ.jpg"></img>
+                    <h1 className="text-1xl">Find Jobs Here</h1>
+                    </div>
+                </Link>
+                <Link href="/roadmap">
+                <div className="cursor-pointer bg-secondary w-[10rem] p-4 text-center rounded-2xl">
+                    <img src="https://cdn-icons-png.flaticon.com/512/7891/7891893.png"></img>
+                    <h1 className="text-1xl">Get Your Roadmap</h1>
+                    </div>
+                </Link>
+            </div>
+                </BlurFade>
         </div>
     )
 }
