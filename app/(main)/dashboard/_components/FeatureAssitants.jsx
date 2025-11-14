@@ -13,6 +13,13 @@ function FeatureAssistant() {
     return (
         <div>
 
+            <div>
+                <h2 className='font-medium text-gray-500'>My Workspace </h2>
+                <h2 className='text-3xl font-bold'>Welcome back,{user?.displayName} </h2>
+            </div>
+            <ProfileDialog>
+<Button>Profile</Button>
+</ProfileDialog>
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-10 -mt-10'>
                 {ExpertsList.map((option, index) => (
                     <BlurFade key={option.icon} delay={0.25 + index * 0.05} inView>

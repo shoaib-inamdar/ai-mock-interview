@@ -12,7 +12,7 @@ import { CoachingExpert } from '@/services/Options';
 import { LoaderCircle, View } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { DialogClose } from '@radix-ui/react-dialog';
+import { DialogClose } from '@radix-ui/react-dialog'; 
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useRouter } from 'next/navigation';

@@ -15,9 +15,10 @@ function ProfileDialog({children}) {
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent>
             <DialogHeader>
-            <DialogTitle>  </DialogTitle>
+            <DialogTitle> 
+              //Are you absolutely sure? </DialogTitle>
             <DialogDescription>
-               
+               //This action cannot be undone.This will permanently delete your account and remove your date from our servers.
             </DialogDescription>
             <Credits/>
             </DialogHeader>

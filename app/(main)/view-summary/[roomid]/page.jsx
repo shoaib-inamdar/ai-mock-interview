@@ -7,10 +7,7 @@ import Image from 'next/image';
 import { ExpertsList } from '@/services/Options';
 import moment from 'moment';
 import ChatBox from '../../discussion-room/[roomid]/_components/ChatBox';
-import SummeryBox from '../_components/SummeryBox';
-
-
-
+import SummeryBox from '../_components/SummaryBox';
 
 function ViewSummary() {
 
@@ -24,7 +21,7 @@ function ViewSummary() {
         return coachingOption?.abstract ?? '/ab1.png';
     }
 
-
+ 
     return (
         <div className='-mt-10'>
             <div className='flex justify-between items-end'>

@@ -89,6 +89,7 @@ function DiscussionRoom() {
         aiResp  // { role: "assistant", content: ... }
       ]);
       aiRequestsThisMinute.current++;
+      await updateUserTokenMethod(aiResp.content); // upadte AI generated token 
     }
   } finally {
     isProcessingQueue.current = false;
@@ -203,6 +204,8 @@ function DiscussionRoom() {
             silenceTimeout = setTimeout(() => {
               console.log("Silence detected: User stopped talking");
             }, 2000);
+            console.log(conversation)
+           
           },
         });
 
@@ -248,17 +251,18 @@ function DiscussionRoom() {
   };
 
 
-  const updateUserCredits = async(text)=>{
-    const tokencount = text.trim()?text.trim().split(/\s+/).length:0;
+  const updateUserTokenMethod = async(text)=>{
+    const tokenCount = text.trim()?text.trim().split(/\s+/).length:0;
     const result = await updateUserToken({
       id: userData._id,
-      credits: Number(userData.credits) - Number(tokencount)
+      credits: Number(userData.credits) - Number(tokenCount)
     });
 
     setUserdata(prev=>({
       ...prev,
-      credits: Number(userData.credits) - Number(tokencount)
+      credits: Number(userData.credits) - Number(tokenCount)
     }))
+
   }
 
   return (
@@ -294,7 +298,12 @@ function DiscussionRoom() {
               <Webcam height={80} width={130} className="rounded-2xl"/>
             </div>*/}
           </div>
-
+          <div className="absolute bottom-10 right-10">
+          <Webcam height={80}
+          width={130}
+          className="rounded-2xl"
+          />
+</div>
           <div className="mt-5 flex items-center justify-center">
             {!enabled ? (
               <Button onClick={connectToServer} disabled={loading}>{loading && <Loader2Icon className="animate-spin" />}Connect</Button>
