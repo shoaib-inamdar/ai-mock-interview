@@ -13,6 +13,7 @@
   "dependencies": {
     "@aws-sdk/client-polly": "^3.848.0",
     "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-progress": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.3",
     "@sanity/client": "^7.12.1",
     "@stackframe/stack": "^2.8.51",
