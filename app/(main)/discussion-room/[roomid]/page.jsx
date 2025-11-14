@@ -89,7 +89,7 @@ function DiscussionRoom() {
         aiResp  // { role: "assistant", content: ... }
       ]);
       aiRequestsThisMinute.current++;
-      await updateUserTokenMethod(aiResp.content); // upadte AI generated token 
+      // await updateUserTokenMethod(aiResp.content); // upadte AI generated token 
     }
   } finally {
     isProcessingQueue.current = false;
@@ -262,7 +262,6 @@ function DiscussionRoom() {
       ...prev,
       credits: Number(userData.credits) - Number(tokenCount)
     }))
-
   }
 
   return (

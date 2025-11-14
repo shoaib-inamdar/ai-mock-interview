@@ -20,9 +20,8 @@ export const AIModel = async (topic, coachingOption,conversation, newUserUtteran
         const option = ExpertsList.find(item => item.name === coachingOption);
   const PROMPT = option.prompt.replace('{user_topic}', topic);
         const messages = [
-    { role: "system", content: PROMPT },  // Use "system" for persistent instructions
-    ...conversation,  // Full prior turns (user/assistant alternations)
-    // Append new user utterance(s); if batched, treat as multi-turn user input
+    { role: "assistant", content: PROMPT }, 
+    ...conversation,  
     ...(Array.isArray(newUserUtterances) ? newUserUtterances : [newUserUtterances]).map(utt => ({
       role: "user",
       content: utt
@@ -30,7 +29,7 @@ export const AIModel = async (topic, coachingOption,conversation, newUserUtteran
   ];
 
         const completion = await openai.chat.completions.create({
-                model: "openrouter/polaris-alpha",
+                model: "meta-llama/llama-4-scout:free",
                 messages
         });
 
@@ -44,7 +43,7 @@ export const AIModelToGenerateFeedbackAndNotes = async (ExpertsLists, conversati
         const PROMPT = (option.summeryPrompt)
 
         const completion = await openai.chat.completions.create({
-                model: "openrouter/polaris-alpha",
+                model: "meta-llama/llama-4-scout:free",
                 messages: [
                   ...conversation,
                         { role: "assistant", content: PROMPT },

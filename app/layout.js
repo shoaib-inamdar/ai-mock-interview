@@ -1,7 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { StackProvider, StackTheme } from "@stackframe/stack";
-import { stackClientApp } from "../stack/client";
-// import { StackTheme } from "@stackframe/stack";
 import Provider from "./provider";
 import { stackServerApp } from "../stack";
 import "./globals.css";
@@ -28,12 +26,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      ><StackProvider app={stackClientApp}><StackTheme><StackProvider app={stackServerApp}><StackTheme>
+      ><StackProvider app={stackServerApp}><StackTheme>
         <Provider>{children}
           <Toaster/>
         </Provider>
         
-      </StackTheme></StackProvider></StackTheme></StackProvider></body>
+      </StackTheme></StackProvider></body>
     </html>
   );
 }

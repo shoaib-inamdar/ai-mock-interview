@@ -18,7 +18,7 @@ function FeatureAssistant() {
                 <h2 className='text-3xl font-bold'>Welcome back,{user?.displayName} </h2>
             </div>
             <ProfileDialog>
-<Button>Profile</Button>
+{/* <Button>Profile</Button> */}
 </ProfileDialog>
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-10 -mt-10'>
                 {ExpertsList.map((option, index) => (

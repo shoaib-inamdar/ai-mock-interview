@@ -9,12 +9,12 @@ import FeatureAssistant from './_components/FeatureAssitants'
 
 export default function Dashboard() {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pb-20 -mt-20 w-full">
+        <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 pb-20 -mt-20 w-full">
             {/* Hero Section */}
             <div className="w-full px-6 pt-12 pb-8 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div>
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 drop-shadow-sm">
-                        Welcome to your <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AI Workspace</span>
+                        Welcome to your <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AI Workspace</span>
                     </h1>
                     <p className="text-lg text-gray-600 mb-6 max-w-xl">
                         Access all your AI-powered learning tools, track your progress, and get personalized feedback—all in one place.
